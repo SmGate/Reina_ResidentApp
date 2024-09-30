@@ -76,8 +76,7 @@ class PartiallyPaidBill extends StatelessWidget {
                         _sectionTitle("Bill Details"),
                         _billDetailsTable(),
                         const SizedBox(height: 20),
-                        homeScreenController
-                                    .appPermissionModel.data?['Payment'] ==
+                        homeScreenController.user.permissions?['Payment'] ==
                                 false
                             ? SizedBox()
                             : _payBillButton(controller),

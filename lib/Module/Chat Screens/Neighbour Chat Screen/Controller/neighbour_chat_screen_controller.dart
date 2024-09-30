@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
 import 'package:userapp/Module/Chat%20Screens/Neighbour%20Chat%20Screen/Model/BlockedUser.dart';
+import 'package:userapp/Services/Send%20Notification%20Service/send_notification_service.dart';
 
 import '../../../../utils/Constants/api_routes.dart';
 import '../../../../utils/Constants/constants.dart';
@@ -82,41 +83,48 @@ class NeighbourChatScreenController extends GetxController {
       required message,
       required chatRoomId,
       required Map myData}) async {
-    print("----chat room id------");
-    print(chatRoomId);
-    print("----chat room id------");
-    const String serverKey =
-        'AAAA_LNU7n0:APA91bFIkH1lvp3eEUWJWg6ptFpvt5dz7XWVQVbnt9rgYVDfDPdSbwbyapKkVu7NyVWpSpfOVfFaGg1sr7QxXaZFlMav4kyVPi1tk7Rs6ejybJEYTOOnTbYufjHw7aZUYUx_xaZ2fGbr'; // Replace with your FCM server key
-    final String fcmEndpoint = 'https://fcm.googleapis.com/fcm/send';
+    await SendNotificationService.sendNotificationUsingApi(
+        token: fcmToken,
+        title: chatType,
+        body: '$name : $message',
+        type: chatType,
+        chatRoomId: chatRoomId,
+        data: myData);
+    // print("----chat room id------");
+    // print(chatRoomId);
+    // print("----chat room id------");
+    // const String serverKey =
+    //     'AAAA_LNU7n0:APA91bFIkH1lvp3eEUWJWg6ptFpvt5dz7XWVQVbnt9rgYVDfDPdSbwbyapKkVu7NyVWpSpfOVfFaGg1sr7QxXaZFlMav4kyVPi1tk7Rs6ejybJEYTOOnTbYufjHw7aZUYUx_xaZ2fGbr'; // Replace with your FCM server key
+    // final String fcmEndpoint = 'https://fcm.googleapis.com/fcm/send';
 
-    final Map<String, dynamic> notification = {
-      'title': chatType,
-      'body': '$name : $message',
-    };
-    // var li = [];
-    // li.add(myData);
+    // final Map<String, dynamic> notification = {
+    //   'title': chatType,
+    //   'body': '$name : $message',
+    // };
+    // // var li = [];
+    // // li.add(myData);
 
-    final Map<String, dynamic> data = {
-      'notification': notification,
-      'priority': 'high',
-      'to': fcmToken.toString(),
-      'data': {'type': chatType, 'data': myData, 'chatroomid': chatRoomId},
-    };
+    // final Map<String, dynamic> data = {
+    //   'notification': notification,
+    //   'priority': 'high',
+    //   'to': fcmToken.toString(),
+    //   'data': {'type': chatType, 'data': myData, 'chatroomid': chatRoomId},
+    // };
 
-    final response = await Http.post(
-      Uri.parse(fcmEndpoint),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'key=$serverKey',
-      },
-      body: jsonEncode(data),
-    );
+    // final response = await Http.post(
+    //   Uri.parse(fcmEndpoint),
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'key=$serverKey',
+    //   },
+    //   body: jsonEncode(data),
+    // );
 
-    if (response.statusCode == 200) {
-      print("success");
-    } else {
-      print("failed");
-    }
+    // if (response.statusCode == 200) {
+    //   print("success");
+    // } else {
+    //   print("failed");
+    // }
   }
 
   Future<BlockedUser?> checkBlockUserApi({

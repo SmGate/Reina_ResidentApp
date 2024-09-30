@@ -22,16 +22,6 @@ const String societyHasCustomIntroKey = "has_custom_intro";
 const String societySloganKey = "slogan";
 const String societyLogoKey = "logo";
 const String societyNameKey = "name";
+const String societyPermissionKey = "permissions";
 
-///////////////  Socity data
-const String societyIdKey = "id";
-const String societySubAdminIdKey = "subAdminId";
-
-const String societyAddressKey = "address";
-const String societyCountryKey = "country";
-const String societyStateKey = "state";
-const String societyCityKey = "city";
-const String societyTypeKey = "type";
-const String societyStructureTypeKey = "structureType";
-//const String societyHasCustomIntroKey = "has_custom_intro";
 

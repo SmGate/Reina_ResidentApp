@@ -64,25 +64,25 @@ class LoginController extends GetxController {
         res.success == true) {
       loginUserModel = res;
       User user = User(
-        userId: loginUserModel.data?.id,
-        subadminid: loginUserModel.data?.subadminid,
-        residentid: loginUserModel.data?.residentid,
-        firstName: loginUserModel.data?.firstname,
-        lastName: loginUserModel.data?.lastname,
-        cnic: loginUserModel.data?.cnic,
-        roleId: loginUserModel.data?.roleid,
-        roleName: loginUserModel.data?.rolename,
-        address: loginUserModel.data?.address,
-        mobile: loginUserModel.data?.mobileno,
-        bearerToken: loginUserModel.bearer,
-        image: loginUserModel.data?.image,
-        email: loginUserModel.data?.email,
-        societyId: loginUserModel.data?.societyId,
-        hasCustomIntro: loginUserModel.data?.hasCustomIntro,
-        slogan: loginUserModel.data?.slogan,
-        logo: loginUserModel.data?.logo,
-        societyName: loginUserModel.data?.name,
-      );
+          userId: loginUserModel.data?.id,
+          subadminid: loginUserModel.data?.subadminid,
+          residentid: loginUserModel.data?.residentid,
+          firstName: loginUserModel.data?.firstname,
+          lastName: loginUserModel.data?.lastname,
+          cnic: loginUserModel.data?.cnic,
+          roleId: loginUserModel.data?.roleid,
+          roleName: loginUserModel.data?.rolename,
+          address: loginUserModel.data?.address,
+          mobile: loginUserModel.data?.mobileno,
+          bearerToken: loginUserModel.bearer,
+          image: loginUserModel.data?.image,
+          email: loginUserModel.data?.email,
+          societyId: loginUserModel.data?.societyId,
+          hasCustomIntro: loginUserModel.data?.hasCustomIntro,
+          slogan: loginUserModel.data?.slogan,
+          logo: loginUserModel.data?.logo,
+          societyName: loginUserModel.data?.name,
+          permissions: loginUserModel.data?.permissions);
 
       MySharedPreferences.setUserData(user: user);
 
@@ -139,9 +139,6 @@ class LoginController extends GetxController {
       } else {
         Get.offAndToNamed(homescreen, arguments: user2);
       }
-
-      // var cont = Get.find<HomeScreenController>();
-      // cont.updateUser(user2);
     } else {
       loading.value = false;
       errorWhileLogin.value = res.toString();

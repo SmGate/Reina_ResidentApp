@@ -398,7 +398,7 @@ class NeighbourChatScreen extends GetView {
                                       });
 
                                       print('Data added successfully');
-
+// 'data': {'type': chatType, 'data': myData, 'chatroomid': chatRoomId},
                                       controller.sendNotification(
                                           chatType: controller.chatType,
                                           chatRoomId: controller.chatRoomId,

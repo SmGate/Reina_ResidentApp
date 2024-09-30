@@ -71,9 +71,7 @@ class UnpaidPaidBillDetails extends StatelessWidget {
                       _sectionTitle("Bill Details"),
                       _billDetailsTable(),
                       const SizedBox(height: 20),
-                      homeScreenController
-                                  .appPermissionModel.data?['Payment'] ==
-                              false
+                      homeScreenController.user.permissions?['Payment'] == false
                           ? SizedBox()
                           : _payBillButton(controller, context),
                     ],

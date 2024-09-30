@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
 import 'package:image_picker/image_picker.dart';
 import 'package:userapp/App%20Exceptions/app_exception.dart';
-import 'package:userapp/Module/HomeScreen/Model/app_permissions_model.dart';
 import 'package:userapp/Module/HomeScreen/Model/society_support_model.dart';
 import 'package:userapp/Module/HomeScreen/service/home_screen_service.dart';
 import 'package:userapp/utils/Constants/api_routes.dart';
@@ -87,8 +86,6 @@ class HomeScreenController extends GetxController {
 
     socitySupportModel =
         await getSocietySupport(subadminId: user.subadminid ?? 0);
-    appPermissionModel =
-        await getAllAppPermission(societyId: user.societyId?.toString());
   }
 
   // Method to update user data
@@ -266,23 +263,6 @@ class HomeScreenController extends GetxController {
     }
 
     return socitySupportModel;
-  }
-
-  ///////////// APP PERMISSIONS
-  var appPermissionModel = AppPermissionsModel();
-  var error1 = "";
-
-  Future<AppPermissionsModel> getAllAppPermission({String? societyId}) async {
-    var res = await HomeScreenService.getAllPermissions(societyId: societyId);
-    if (res is AppPermissionsModel) {
-      appPermissionModel = res;
-      return appPermissionModel;
-    } else {
-      error1 = res.toString();
-      Get.snackbar("Error", error1);
-    }
-
-    return appPermissionModel;
   }
 }
 

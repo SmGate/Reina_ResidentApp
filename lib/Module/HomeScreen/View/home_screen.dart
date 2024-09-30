@@ -574,8 +574,7 @@ class HomeScreen extends GetView {
                                   Row(
                                     children: [
                                       if (homeScreenController
-                                              .appPermissionModel
-                                              .data?["chat"] ==
+                                              .user.permissions?["chat"] ==
                                           true) ...[
                                         MenuItems(
                                           image: AppImages.communityMember,
@@ -593,10 +592,10 @@ class HomeScreen extends GetView {
                                           width: 20,
                                         ),
                                       ],
-                                      ///////////   ///////////////////Disscussion  Forum//////////////////
+                                      //////////////////////////////Disscussion  Forum//////////////////
                                       if (homeScreenController
-                                              .appPermissionModel
-                                              .data?["discussion_forum"] ==
+                                                  .user.permissions?[
+                                              "discussion_forum"] ==
                                           true) ...[
                                         MenuItems(
                                           image: AppImages.disscussionForum,
@@ -1173,7 +1172,7 @@ class HomeScreen extends GetView {
                       : AppImages.disscussiongrey,
                   onPressed: () async {
                     if (homeScreenController
-                            .appPermissionModel.data?["discussion_forum"] ==
+                            .user.permissions?["discussion_forum"] ==
                         false) {
                       myToast(
                           msg: 'You are not the member of disscussion forum');

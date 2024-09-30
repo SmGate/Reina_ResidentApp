@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/Constants/shared_preferences_constants.dart';
 import '../../Module/Login/Model/User.dart';
@@ -24,6 +26,14 @@ class MySharedPreferences {
       value.setString(societySloganKey, user.slogan ?? '');
       value.setString(societyLogoKey, user.logo ?? '');
       value.setString(societyNameKey, user.societyName ?? '');
+
+      // Convert permissions to a JSON string and save it
+      if (user.permissions != null) {
+        String permissionsJson = jsonEncode(user.permissions);
+        value.setString(societyPermissionKey, permissionsJson);
+      } else {
+        value.remove(societyPermissionKey); // Remove if permissions are null
+      }
     });
   }
 
@@ -53,6 +63,13 @@ class MySharedPreferences {
       value.getString(societyNameKey) ?? value.setString(societyNameKey, '');
       value.getInt(societyHasCustomIntroKey) ??
           value.setInt(societyHasCustomIntroKey, 0);
+
+      // Retrieve the permissions as JSON and decode it back to a Map
+      String? permissionsJson = value.getString(societyPermissionKey);
+      Map<String, bool>? permissions;
+      if (permissionsJson != null) {
+        permissions = Map<String, bool>.from(jsonDecode(permissionsJson));
+      }
       _user = User(
         userId: value.getInt(userIdSPKey),
         subadminid: value.getInt(subAminIdSPKey),
@@ -73,6 +90,7 @@ class MySharedPreferences {
         slogan: value.getString(societySloganKey),
         logo: value.getString(societyLogoKey),
         societyName: value.getString(societyNameKey),
+        permissions: permissions,
       );
     });
 
@@ -100,6 +118,7 @@ class MySharedPreferences {
       value.remove(societySloganKey);
       value.remove(societyLogoKey);
       value.remove(societyNameKey);
+      value.remove(societyPermissionKey);
     });
   }
 }

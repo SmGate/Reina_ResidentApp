@@ -18,28 +18,29 @@ class User {
   String? slogan;
   String? logo;
   String? societyName;
+  Map<String, bool>? permissions;
 
-  User({
-    this.userId,
-    this.subadminid,
-    this.firstName,
-    this.lastName,
-    this.familyMemberId,
-    this.residentid,
-    this.cnic,
-    this.roleId,
-    this.roleName,
-    this.mobile,
-    this.bearerToken,
-    this.address,
-    this.societyId,
-    this.email,
-    this.hasCustomIntro,
-    this.image,
-    this.slogan,
-    this.societyName,
-    this.logo,
-  });
+  User(
+      {this.userId,
+      this.subadminid,
+      this.firstName,
+      this.lastName,
+      this.familyMemberId,
+      this.residentid,
+      this.cnic,
+      this.roleId,
+      this.roleName,
+      this.mobile,
+      this.bearerToken,
+      this.address,
+      this.societyId,
+      this.email,
+      this.hasCustomIntro,
+      this.image,
+      this.slogan,
+      this.societyName,
+      this.logo,
+      this.permissions});
 
   // Convert User object to a Map
   Map<String, dynamic> toJson() {
@@ -63,6 +64,8 @@ class User {
       'slogan': slogan,
       'logo': logo,
       'societyName': societyName,
+      "permissions":
+          Map.from(permissions!).map((k, v) => MapEntry<String, dynamic>(k, v)),
     };
   }
 
@@ -88,6 +91,8 @@ class User {
       slogan: json['slogan'],
       logo: json['logo'],
       societyName: json['societyName'],
+      permissions: Map.from(json["permissions"]!)
+          .map((k, v) => MapEntry<String, bool>(k, v)),
     );
   }
 }

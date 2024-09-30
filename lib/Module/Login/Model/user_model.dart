@@ -75,6 +75,7 @@ class Data {
   int? superadminid;
   int? structuretype;
   int? societyId;
+  Map<String, bool>? permissions;
 
   Data({
     this.id,
@@ -115,6 +116,7 @@ class Data {
     this.superadminid,
     this.structuretype,
     this.societyId,
+    this.permissions,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -160,6 +162,8 @@ class Data {
         superadminid: json["superadminid"],
         structuretype: json["structuretype"],
         societyId: json["society_id"],
+        permissions: Map.from(json["permissions"]!)
+            .map((k, v) => MapEntry<String, bool>(k, v)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -201,5 +205,7 @@ class Data {
         "superadminid": superadminid,
         "structuretype": structuretype,
         "society_id": societyId,
+        "permissions": Map.from(permissions!)
+            .map((k, v) => MapEntry<String, dynamic>(k, v)),
       };
 }
