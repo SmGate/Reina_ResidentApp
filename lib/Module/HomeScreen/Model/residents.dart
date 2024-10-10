@@ -16,24 +16,27 @@ class Residents {
   int? status;
   String? createdAt;
   String? updatedAt;
+  int? isModerator;
+  int? isForumBlocked;
 
-  Residents({
-    required this.id,
-    required this.username,
-    required this.residentid,
-    required this.subadminid,
-    required this.societyid,
-    required this.superadminid,
-    required this.country,
-    required this.state,
-    required this.city,
-    required this.houseaddress,
-    required this.vechileno,
-    required this.residenttype,
-    required this.propertytype,
-    required this.committeemember,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+  Residents(
+      {this.id,
+      this.username,
+      this.residentid,
+      this.subadminid,
+      this.societyid,
+      this.superadminid,
+      this.country,
+      this.state,
+      this.city,
+      this.houseaddress,
+      this.vechileno,
+      this.residenttype,
+      this.propertytype,
+      this.committeemember,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.isForumBlocked,
+      this.isModerator});
 }

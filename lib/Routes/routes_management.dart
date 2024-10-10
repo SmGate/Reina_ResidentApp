@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:userapp/Module/Discussion%20Form/View/all_residents.dart';
 import 'package:userapp/Module/Discussion%20Form/View/discussion_form.dart';
 import 'package:userapp/Module/Emergency%20Numbers/view/emergency_number_screen.dart';
 import 'package:userapp/Module/Events/View/events_screen.dart';
@@ -9,6 +10,7 @@ import 'package:userapp/Module/Market%20Place/View/market_place_product_details.
 import 'package:userapp/Module/All_Bills/View/all_bills.dart';
 import 'package:userapp/Module/Profile/View/profile.dart';
 import 'package:userapp/Module/SocietyRules/view/society_rules.dart';
+import 'package:userapp/Module/Splash/View/no_internet_screen.dart';
 import 'package:userapp/Module/Splash/View/splash_screen.dart';
 import 'package:userapp/Module/Verification/Change%20Password/View/forget_password.dart';
 import 'package:userapp/Module/Verification/Verification%20Code/View/verification_code.dart';
@@ -201,6 +203,14 @@ class RouteManagement {
           name: forgetPassword,
           page: () => ForgetPassword(),
           binding: ScreenBindings(),
+          transition: Transition.noTransition),
+      GetPage(
+          name: noInternetConnection,
+          page: () => NoInternetConnectionScreen(),
+          transition: Transition.noTransition),
+      GetPage(
+          name: allResidents,
+          page: () => ViewResidents(),
           transition: Transition.noTransition),
     ];
   }

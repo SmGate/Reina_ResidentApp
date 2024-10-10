@@ -66,6 +66,7 @@ class Data {
   String? fcmtoken;
   int? code;
   int? isVerified;
+  dynamic phone;
   String? area;
   String? type;
   String? slogan;
@@ -75,49 +76,57 @@ class Data {
   int? superadminid;
   int? structuretype;
   int? societyId;
+  String? supportEmail;
+  String? supportPhone;
+  String? splashImage;
+  int? isModerator;
   Map<String, bool>? permissions;
 
-  Data({
-    this.id,
-    this.residentid,
-    this.subadminid,
-    this.username,
-    this.country,
-    this.state,
-    this.city,
-    this.houseaddress,
-    this.vechileno,
-    this.residenttype,
-    this.propertytype,
-    this.visibility,
-    this.committeemember,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.firstname,
-    this.lastname,
-    this.name,
-    this.email,
-    this.cnic,
-    this.address,
-    this.mobileno,
-    this.roleid,
-    this.rolename,
-    this.image,
-    this.fcmtoken,
-    this.code,
-    this.isVerified,
-    this.area,
-    this.type,
-    this.slogan,
-    this.appcharges,
-    this.logo,
-    this.hasCustomIntro,
-    this.superadminid,
-    this.structuretype,
-    this.societyId,
-    this.permissions,
-  });
+  Data(
+      {this.id,
+      this.residentid,
+      this.subadminid,
+      this.username,
+      this.country,
+      this.state,
+      this.city,
+      this.houseaddress,
+      this.vechileno,
+      this.residenttype,
+      this.propertytype,
+      this.visibility,
+      this.committeemember,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.firstname,
+      this.lastname,
+      this.name,
+      this.email,
+      this.cnic,
+      this.address,
+      this.mobileno,
+      this.roleid,
+      this.rolename,
+      this.image,
+      this.fcmtoken,
+      this.code,
+      this.isVerified,
+      this.phone,
+      this.area,
+      this.type,
+      this.slogan,
+      this.appcharges,
+      this.logo,
+      this.hasCustomIntro,
+      this.superadminid,
+      this.structuretype,
+      this.societyId,
+      this.supportEmail,
+      this.supportPhone,
+      this.permissions,
+      this.isModerator,
+      this.splashImage});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -153,6 +162,7 @@ class Data {
         fcmtoken: json["fcmtoken"],
         code: json["code"],
         isVerified: json["is_verified"],
+        phone: json["phone"],
         area: json["area"],
         type: json["type"],
         slogan: json["slogan"],
@@ -162,8 +172,17 @@ class Data {
         superadminid: json["superadminid"],
         structuretype: json["structuretype"],
         societyId: json["society_id"],
-        permissions: Map.from(json["permissions"]!)
-            .map((k, v) => MapEntry<String, bool>(k, v)),
+        supportEmail: json["support_email"],
+        supportPhone: json["support_phone"],
+        splashImage: json["splash_image"],
+        isModerator: json["is_moderator"],
+        permissions: json["permissions"] is Map
+            ? Map<String, bool>.from(json["permissions"])
+            : Map<String, bool>.fromIterable(
+                json["permissions"] ?? [],
+                key: (item) => item['key'],
+                value: (item) => item['value'],
+              ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,6 +215,7 @@ class Data {
         "fcmtoken": fcmtoken,
         "code": code,
         "is_verified": isVerified,
+        "phone": phone,
         "area": area,
         "type": type,
         "slogan": slogan,
@@ -205,6 +225,10 @@ class Data {
         "superadminid": superadminid,
         "structuretype": structuretype,
         "society_id": societyId,
+        "support_email": supportEmail,
+        "support_phone": supportPhone,
+        "splash_image": splashImage,
+        "is_moderator": isModerator,
         "permissions": Map.from(permissions!)
             .map((k, v) => MapEntry<String, dynamic>(k, v)),
       };

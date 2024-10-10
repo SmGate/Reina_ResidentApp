@@ -485,6 +485,7 @@ class _AddPreApproveEntryState extends State<AddPreApproveEntry> {
                           controller: controller.cnicController,
                           labelText: 'Cnic',
                           hintText: 'Cnic',
+                          maxLength: 15,
                           textInputType: TextInputType.number,
                           onChanged: (value) {
                             String formattedText =

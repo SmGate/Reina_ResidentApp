@@ -240,7 +240,6 @@ class MyDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   onTap: () async {
-                    // await authController.logout();
                     // await FirebaseMessaging.instance.deleteToken();
                     homeScreenController.logoutApi(
                         token: homeScreenController.user.bearerToken!);

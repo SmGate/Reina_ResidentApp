@@ -7,6 +7,7 @@ import 'package:http/http.dart' as Http;
 import 'package:intl/intl.dart';
 import 'package:userapp/Module/HomeScreen/Model/DiscussionRoomModel.dart' as D;
 import 'package:userapp/Module/HomeScreen/Model/DiscussionRoomModel.dart';
+import 'package:userapp/utils/Constants/session_controller.dart';
 
 import '../../../utils/Constants/api_routes.dart';
 import '../../HomeScreen/Model/residents.dart';
@@ -16,6 +17,8 @@ import '../Model/DiscussionChatModel.dart';
 class DiscussionFormController extends GetxController {
   late final U.User user;
   late final Residents resident;
+  RxInt isModeratorVal = 0.obs;
+  RxInt isForumBlockedVal = 0.obs;
   D.DiscussionRoomModel discussionRoomModel = D.DiscussionRoomModel();
   var data = Get.arguments;
   List<DiscussionChatModel> myList = [];
@@ -26,18 +29,26 @@ class DiscussionFormController extends GetxController {
 
   @override
   void onInit() async {
+    print("every time call");
     super.onInit();
-    ;
 
     user = data[0];
     resident = data[1];
-    // discussionRoomModel = data[2];
 
     discussionRoomModel = await createChatRoomApi(
         token: user.bearerToken!, subadminid: resident.subadminid!);
 
-    // _initiatePusherSocketForMessaging();
-    // allDiscussionChatsApi(token: user!.bearerToken!,discussionroomid:discussionRoomModel?.data?.first.id );
+    setBLockedResident(SessionController().residents.isForumBlocked ?? 0);
+
+    setModeratorResident(SessionController().residents.isModerator ?? 0);
+  }
+
+  void setBLockedResident(int isForumBlocked) {
+    isForumBlockedVal.value = isForumBlocked;
+  }
+
+  void setModeratorResident(int isModerator) {
+    isModeratorVal.value = isModerator;
   }
 
   String getFormattedDate() {

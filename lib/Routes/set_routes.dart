@@ -39,3 +39,5 @@ const String emergencyContact = '/emergency-contact';
 const String getAllVisitorDetails = '/getAllVisitorDetails';
 const String voting = '/voting';
 const String societyRule = '/society-rule';
+const String allResidents = '/allResidents';
+const String noInternetConnection = '/no_internet';

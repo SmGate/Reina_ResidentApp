@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
 import 'package:userapp/Module/Chat%20Screens/Neighbour%20Chat%20Screen/Model/BlockedUser.dart';
-import 'package:userapp/Services/Send%20Notification%20Service/send_notification_service.dart';
+import 'package:userapp/Services/SendNotificationService/send_notification_service.dart';
 
 import '../../../../utils/Constants/api_routes.dart';
 import '../../../../utils/Constants/constants.dart';
@@ -80,16 +80,20 @@ class NeighbourChatScreenController extends GetxController {
       {required chatType,
       required fcmToken,
       required name,
-      required message,
+      required chatmessage,
       required chatRoomId,
-      required Map myData}) async {
+      required dynamic myData}) async {
     await SendNotificationService.sendNotificationUsingApi(
-        token: fcmToken,
-        title: chatType,
-        body: '$name : $message',
-        type: chatType,
-        chatRoomId: chatRoomId,
-        data: myData);
+      token: fcmToken,
+      title: chatType,
+      body: '$name : $chatmessage',
+      type: chatType,
+      chatRoomId: chatRoomId,
+      data: myData,
+    );
+
+/////////////////////
+
     // print("----chat room id------");
     // print(chatRoomId);
     // print("----chat room id------");

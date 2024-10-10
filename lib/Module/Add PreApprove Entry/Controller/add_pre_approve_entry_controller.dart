@@ -252,12 +252,12 @@ class AddPreApproveEntryController extends GetxController
               arguments: [userdata, resident]);
 
       //   CustomSnackbar.show("Message", " model.message ?? " "");
-      Get.snackbar("Message", model.message ?? "");
+      Get.snackbar("Message", res.message.toString());
     } else {
       isLoading.value = false;
-      error.value = res.message.toString();
-      ;
-      Get.snackbar("Message", error.toString());
+      error.value = res.toString();
+
+      Get.snackbar("Error", error.toString());
     }
   }
 

@@ -343,41 +343,34 @@ class AddFamilyMember extends GetView {
                             labelText: 'Password',
                           ),
                           17.h.ph,
-                          Obx(() => residentPersonalDetailController
-                                  .loading.value
-                              ? CircularProgressIndicator(
-                                  color: AppColors.appThem,
-                                )
-                              : MyButton(
-                                  loading: residentPersonalDetailController
-                                      .loading.value,
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      residentPersonalDetailController.type =
-                                          "AddFamilyMember";
-                                      residentPersonalDetailController.handleSignUp(
-                                          firstName: controller
-                                              .firstnameController.text,
-                                          lastName: controller
-                                              .lastnameController.text,
-                                          cnic: "",
-                                          address: "",
-                                          mobileno:
-                                              "+${controller.countryCode}${controller.mobileNoController.text}",
-                                          password: controller
-                                              .passwordController.text,
-                                          file: controller.imageFile,
-                                          type: "AddFamilyMember");
-                                    }
-                                  },
-                                  textColor: Colors.white,
-                                  gradient: AppGradients.buttonGradient,
-                                  name: 'Next',
-                                  width: 300,
-                                  outlinedBorder: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                )),
+                          Obx(() => MyButton(
+                                loading: residentPersonalDetailController
+                                    .loading.value,
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    residentPersonalDetailController.handleSignUp(
+                                        firstName:
+                                            controller.firstnameController.text,
+                                        lastName:
+                                            controller.lastnameController.text,
+                                        cnic: "",
+                                        address: "",
+                                        mobileno:
+                                            "+${controller.countryCode}${controller.mobileNoController.text}",
+                                        password:
+                                            controller.passwordController.text,
+                                        file: controller.imageFile,
+                                        type: "AddFamilyMember");
+                                  }
+                                },
+                                textColor: Colors.white,
+                                gradient: AppGradients.buttonGradient,
+                                name: 'Next',
+                                width: 300,
+                                outlinedBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                              )),
                           25.h.ph,
                         ],
                       ),

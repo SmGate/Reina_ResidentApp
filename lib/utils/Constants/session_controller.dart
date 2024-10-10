@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import '../../Module/HomeScreen/Model/residents.dart';
 import '../../Module/Login/Model/User.dart';
 
 class SessionController {
@@ -12,4 +13,5 @@ class SessionController {
   SessionController._internal();
 
   User user = User();
+  Residents residents = Residents();
 }

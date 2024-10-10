@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,12 +24,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   User user = User();
 
-  int isCustomSplashScreen = 1;
+  String splashImage = "";
 
+  int isCustomSplashScreen = 1;
+  bool hasInternetConnection = true;
   @override
   void initState() {
     super.initState();
-    getSharedPreferencesData();
+
+    _checkInternetConnection();
   }
 
   void getSharedPreferencesData() async {
@@ -50,6 +54,25 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Timer(Duration(seconds: 3),
           () => Get.offNamed(homescreen, arguments: user));
+    }
+  }
+
+  void _checkInternetConnection() async {
+    print("is this function call");
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        hasInternetConnection = false;
+        Get.offNamed(
+          noInternetConnection,
+        );
+      });
+    } else {
+      setState(() {
+        hasInternetConnection = true;
+      });
+
+      getSharedPreferencesData();
     }
   }
 
@@ -118,66 +141,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget _buildCustomSplashScreen() {
     // Define your custom splash screen UI here
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(138.w, 116.h, 138.w, 0),
-          child: CachedNetworkImage(
-            imageUrl: "${Api.imageBaseUrl}${user.logo}",
-            placeholder: (context, url) => CircularProgressIndicator(
-              color: primaryColor,
-            ),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            fit: BoxFit.cover,
-          ),
+    return Center(
+        child: CachedNetworkImage(
+      height: double.infinity,
+      width: double.infinity,
+      imageUrl: "${Api.imageBaseUrl}${splashImage = user.splashImage ?? ""}",
+      placeholder: (context, url) => Center(
+        child: CircularProgressIndicator(
+          color: primaryColor,
         ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(88.w, 4.h, 89.w, 0),
-          child: Center(
-            child: Text(
-              "${user.societyName}",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inriaSerif(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 35.sp,
-                  color: primaryColor),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(88.w, 4.h, 89.w, 0),
-          child: Center(
-            child: Text(
-              "${user.slogan}",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inriaSerif(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18.sp,
-                  color: primaryColor),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(56.w, 79.h, 56.w, 0),
-          child: SvgPicture.asset(AppImages.splashSvg2),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(0.h, 46.h, 0.h, 0),
-            child: Container(
-              width: double.infinity,
-              height: 237.h,
-              child: SvgPicture.asset(
-                AppImages.splashSvg3,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+      fit: BoxFit.cover,
+    ));
   }
 }

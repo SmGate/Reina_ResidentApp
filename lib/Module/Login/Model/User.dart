@@ -19,6 +19,11 @@ class User {
   String? logo;
   String? societyName;
   Map<String, bool>? permissions;
+  String? supportEmail;
+  String? supportPhone;
+  String? splashImage;
+  String? userType;
+  int? isModerator;
 
   User(
       {this.userId,
@@ -40,7 +45,12 @@ class User {
       this.slogan,
       this.societyName,
       this.logo,
-      this.permissions});
+      this.permissions,
+      this.supportEmail,
+      this.supportPhone,
+      this.splashImage,
+      this.isModerator,
+      this.userType});
 
   // Convert User object to a Map
   Map<String, dynamic> toJson() {
@@ -64,6 +74,11 @@ class User {
       'slogan': slogan,
       'logo': logo,
       'societyName': societyName,
+      "support_email": supportEmail,
+      "support_phone": supportPhone,
+      "splash_image": splashImage,
+      "userType": userType,
+      "is_moderator": isModerator,
       "permissions":
           Map.from(permissions!).map((k, v) => MapEntry<String, dynamic>(k, v)),
     };
@@ -91,6 +106,11 @@ class User {
       slogan: json['slogan'],
       logo: json['logo'],
       societyName: json['societyName'],
+      supportEmail: json["support_email"],
+      supportPhone: json["support_phone"],
+      splashImage: json["splash_image"],
+      userType: json["userType"],
+      isModerator: json["is_moderator"],
       permissions: Map.from(json["permissions"]!)
           .map((k, v) => MapEntry<String, bool>(k, v)),
     );

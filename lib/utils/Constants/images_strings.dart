@@ -65,6 +65,8 @@ class AppImages {
   static const String question = "${iconBasePath}question.png";
   static const String rules = "${iconBasePath}rules.png";
   static const String country = "${iconBasePath}country.png";
+  static const String block = "${iconBasePath}block-user.png";
+  static const String parkingSlots = "${iconBasePath}parking_slots.png";
 
   ///  SVG
   static const String smartgate = "${iconBasePath}smartgate.svg";

@@ -1,3 +1,4 @@
+
 # Flutter/Dart/Pub related
 **/build/
 .dart_tool/
@@ -41,4 +42,6 @@ DerivedData/
 *.class
 
 # Flutter Environment Variables
+lib/utils/Constants/secrets.dart
+lib/Services/SendNotificationService/get_server_key.dart
 .env

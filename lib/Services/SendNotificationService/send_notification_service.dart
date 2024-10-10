@@ -42,7 +42,11 @@ class SendNotificationService {
         "apns": {
           "headers": {"apns-priority": "10"}
         },
-        'data': {'type': type, 'data': data, 'chatroomid': chatRoomId},
+        'data': {
+          'type': type,
+
+          //   'data': data, 'chatroomid': chatRoomId
+        },
       }
     };
 

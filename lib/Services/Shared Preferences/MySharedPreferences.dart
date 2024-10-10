@@ -26,7 +26,11 @@ class MySharedPreferences {
       value.setString(societySloganKey, user.slogan ?? '');
       value.setString(societyLogoKey, user.logo ?? '');
       value.setString(societyNameKey, user.societyName ?? '');
-
+      value.setString(suppoertPhoneKey, user.supportPhone ?? '');
+      value.setString(supportEmail, user.supportEmail ?? '');
+      value.setString(splashImageKey, user.splashImage ?? '');
+      value.setInt(isModeratorKey, user.isModerator ?? 0);
+      value.setString(userTypeKey, user.userType ?? '');
       // Convert permissions to a JSON string and save it
       if (user.permissions != null) {
         String permissionsJson = jsonEncode(user.permissions);
@@ -64,6 +68,13 @@ class MySharedPreferences {
       value.getInt(societyHasCustomIntroKey) ??
           value.setInt(societyHasCustomIntroKey, 0);
 
+      value.getString(suppoertPhoneKey) ??
+          value.setString(suppoertPhoneKey, '');
+      value.getString(supportEmail) ?? value.setString(supportEmail, '');
+      value.getString(splashImageKey) ?? value.setString(splashImageKey, '');
+      value.getString(userTypeKey) ?? value.setString(userTypeKey, '');
+
+      value.getInt(isModeratorKey) ?? value.setInt(isModeratorKey, 0);
       // Retrieve the permissions as JSON and decode it back to a Map
       String? permissionsJson = value.getString(societyPermissionKey);
       Map<String, bool>? permissions;
@@ -91,6 +102,11 @@ class MySharedPreferences {
         logo: value.getString(societyLogoKey),
         societyName: value.getString(societyNameKey),
         permissions: permissions,
+        supportEmail: value.getString(supportEmail),
+        supportPhone: value.getString(suppoertPhoneKey),
+        splashImage: value.getString(splashImageKey),
+        userType: value.getString(userTypeKey),
+        isModerator: value.getInt(isModeratorKey),
       );
     });
 
@@ -98,27 +114,31 @@ class MySharedPreferences {
   }
 
   static deleteUserData() async {
-    await SharedPreferences.getInstance().then((value) {
-      value.remove(userIdSPKey);
-      value.remove(firstNameSPKey);
-      value.remove(lastNameSPKey);
-      value.remove(bearerTokenSPKey);
-      value.remove(cnicSPKey);
-      value.remove(userImageSPKey);
-      value.remove(mobile);
-      value.remove(roleNameSPKey);
-      value.remove(roleIdSPKey);
-      value.remove(addressSPKey);
-      value.remove(residentIdSPKey);
-      value.remove(familyMemberIdSPKey);
-      value.remove(subAminIdSPKey);
-
-      value.remove(societyId);
-      value.remove(societyHasCustomIntroKey);
-      value.remove(societySloganKey);
-      value.remove(societyLogoKey);
-      value.remove(societyNameKey);
-      value.remove(societyPermissionKey);
-    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
+
+  // static deleteUserData() async {
+  //   await SharedPreferences.getInstance().then((value) {
+  //     value.remove(userIdSPKey);
+  //     value.remove(firstNameSPKey);
+  //     value.remove(lastNameSPKey);
+  //     value.remove(bearerTokenSPKey);
+  //     value.remove(cnicSPKey);
+  //     value.remove(userImageSPKey);
+  //     value.remove(mobile);
+  //     value.remove(roleNameSPKey);
+  //     value.remove(roleIdSPKey);
+  //     value.remove(addressSPKey);
+  //     value.remove(residentIdSPKey);
+  //     value.remove(familyMemberIdSPKey);
+  //     value.remove(subAminIdSPKey);
+  //     value.remove(societyId);
+  //     value.remove(societyHasCustomIntroKey);
+  //     value.remove(societySloganKey);
+  //     value.remove(societyLogoKey);
+  //     value.remove(societyNameKey);
+  //     value.remove(societyPermissionKey);
+  //   });
+  // }
 }

@@ -23,5 +23,8 @@ const String societySloganKey = "slogan";
 const String societyLogoKey = "logo";
 const String societyNameKey = "name";
 const String societyPermissionKey = "permissions";
-
-
+const String userTypeKey = "userType";
+const String ssupportEmailKey = "support_email";
+const String suppoertPhoneKey = "support_phone";
+const String splashImageKey = "splash_image";
+const String isModeratorKey = "is_moderator";

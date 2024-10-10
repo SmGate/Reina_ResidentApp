@@ -500,6 +500,21 @@ class HomeScreen extends GetView {
                                           ]);
                                     },
                                   ),
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  MenuItems(
+                                    image: AppImages.parkingSlots,
+                                    title: "Parking",
+                                    secondTitle: "Slots",
+                                    ontap: () {
+                                      // Get.offNamed(preapproveentryscreen,
+                                      //     arguments: [
+                                      //       homeScreenController.user,
+                                      //       homeScreenController.snapShot
+                                      //     ]);
+                                    },
+                                  ),
                                 ],
                               ),
 
@@ -594,9 +609,13 @@ class HomeScreen extends GetView {
                                       ],
                                       //////////////////////////////Disscussion  Forum//////////////////
                                       if (homeScreenController
-                                                  .user.permissions?[
-                                              "discussion_forum"] ==
-                                          true) ...[
+                                                      .user.permissions?[
+                                                  "discussion_forum"] ==
+                                              true &&
+                                          homeScreenController
+                                                      .user.permissions?[
+                                                  "discussion_forum"] !=
+                                              null) ...[
                                         MenuItems(
                                           image: AppImages.disscussionForum,
                                           title: "Disscussion",
@@ -957,10 +976,8 @@ class HomeScreen extends GetView {
                                               width: 175,
                                               child: Text(
                                                 homeScreenController
-                                                    .socitySupportModel
-                                                    .data!
-                                                    .email
-                                                    .toString(),
+                                                        .user.supportEmail ??
+                                                    "",
                                                 style: reusableTextStyle(
                                                     textStyle:
                                                         GoogleFonts.dmSans(),
@@ -988,10 +1005,8 @@ class HomeScreen extends GetView {
                                             ),
                                             Text(
                                               homeScreenController
-                                                  .socitySupportModel
-                                                  .data!
-                                                  .mobileno
-                                                  .toString(),
+                                                      .user.supportPhone ??
+                                                  "",
                                               style: reusableTextStyle(
                                                   textStyle:
                                                       GoogleFonts.dmSans(),
@@ -1081,7 +1096,7 @@ class HomeScreen extends GetView {
                           ? AppColors.appThem
                           : Colors.grey,
                       onPressed: () async {
-                        await homeScreenController.refreshScreen();
+                        // await homeScreenController.refreshScreen();
                         homeScreenController.onItemTapped(0);
 
                         if (homeScreenController.snapShot == null) {
@@ -1107,7 +1122,7 @@ class HomeScreen extends GetView {
                       ? AppImages.complaintsblue
                       : AppImages.complaintsgrey,
                   onPressed: () async {
-                    await homeScreenController.refreshScreen();
+                    // await homeScreenController.refreshScreen();
                     homeScreenController.onItemTapped(1);
                     if (homeScreenController.snapShot == null) {
                       // myToast(
@@ -1139,7 +1154,7 @@ class HomeScreen extends GetView {
                       ? AppImages.noticeboardblue
                       : AppImages.noticeboardgrey,
                   onPressed: () async {
-                    await homeScreenController.refreshScreen();
+                    // await homeScreenController.refreshScreen();
                     homeScreenController.onItemTapped(2);
                     if (homeScreenController.snapShot == null) {
                       // myToast(
@@ -1177,7 +1192,7 @@ class HomeScreen extends GetView {
                       myToast(
                           msg: 'You are not the member of disscussion forum');
                     } else {
-                      await homeScreenController.refreshScreen();
+                      // await homeScreenController.refreshScreen();
                       homeScreenController.onItemTapped(3);
                       if (homeScreenController.snapShot == null) {
                         // myToast(

@@ -64,47 +64,6 @@ class LoginController extends GetxController {
         res.success == true) {
       loginUserModel = res;
       User user = User(
-          userId: loginUserModel.data?.id,
-          subadminid: loginUserModel.data?.subadminid,
-          residentid: loginUserModel.data?.residentid,
-          firstName: loginUserModel.data?.firstname,
-          lastName: loginUserModel.data?.lastname,
-          cnic: loginUserModel.data?.cnic,
-          roleId: loginUserModel.data?.roleid,
-          roleName: loginUserModel.data?.rolename,
-          address: loginUserModel.data?.address,
-          mobile: loginUserModel.data?.mobileno,
-          bearerToken: loginUserModel.bearer,
-          image: loginUserModel.data?.image,
-          email: loginUserModel.data?.email,
-          societyId: loginUserModel.data?.societyId,
-          hasCustomIntro: loginUserModel.data?.hasCustomIntro,
-          slogan: loginUserModel.data?.slogan,
-          logo: loginUserModel.data?.logo,
-          societyName: loginUserModel.data?.name,
-          permissions: loginUserModel.data?.permissions);
-
-      MySharedPreferences.setUserData(user: user);
-
-      final NotificationServices notificationServices = NotificationServices();
-      final String? token = await notificationServices.getDeviceToken();
-      fcmtokenrefresh(user.userId!, token!, user.bearerToken!);
-
-      User user2 = await MySharedPreferences.getUserData();
-      SessionController().user = user2;
-
-      Get.snackbar("Message", "Login Successfully");
-
-      if (user.address == "NA" || user.address == null) {
-        Get.offAndToNamed(residentaddressdetail, arguments: user2);
-      } else {
-        Get.offAndToNamed(homescreen, arguments: user2);
-      }
-    } else if (res is UserModel &&
-        res.data?.rolename == "familymember" &&
-        res.success == true) {
-      loginUserModel = res;
-      User user = User(
         userId: loginUserModel.data?.id,
         subadminid: loginUserModel.data?.subadminid,
         residentid: loginUserModel.data?.residentid,
@@ -123,7 +82,58 @@ class LoginController extends GetxController {
         slogan: loginUserModel.data?.slogan,
         logo: loginUserModel.data?.logo,
         societyName: loginUserModel.data?.name,
+        supportEmail: loginUserModel.data?.supportEmail,
+        supportPhone: loginUserModel.data?.supportPhone,
+        splashImage: loginUserModel.data?.splashImage,
+        permissions: loginUserModel.data?.permissions,
+        isModerator: loginUserModel.data?.isModerator,
+        userType: "resident",
       );
+
+      MySharedPreferences.setUserData(user: user);
+
+      final NotificationServices notificationServices = NotificationServices();
+      final String? token = await notificationServices.getDeviceToken();
+      fcmtokenrefresh(user.userId ?? 0, token ?? "", user.bearerToken ?? "");
+
+      User user2 = await MySharedPreferences.getUserData();
+      SessionController().user = user2;
+
+      Get.snackbar("Message", "Login Successfully");
+
+      if (user.address == "NA" || user.address == null) {
+        Get.offAndToNamed(residentaddressdetail, arguments: user2);
+      } else {
+        Get.offAndToNamed(homescreen, arguments: user2);
+      }
+    } else if (res is UserModel &&
+        res.data?.rolename == "familymember" &&
+        res.success == true) {
+      loginUserModel = res;
+      User user = User(
+          userId: loginUserModel.data?.id,
+          subadminid: loginUserModel.data?.subadminid,
+          residentid: loginUserModel.data?.residentid,
+          firstName: loginUserModel.data?.firstname,
+          lastName: loginUserModel.data?.lastname,
+          cnic: loginUserModel.data?.cnic,
+          roleId: loginUserModel.data?.roleid,
+          roleName: loginUserModel.data?.rolename,
+          address: loginUserModel.data?.address,
+          mobile: loginUserModel.data?.mobileno,
+          bearerToken: loginUserModel.bearer,
+          image: loginUserModel.data?.image,
+          email: loginUserModel.data?.email,
+          societyId: loginUserModel.data?.societyId,
+          hasCustomIntro: loginUserModel.data?.hasCustomIntro,
+          slogan: loginUserModel.data?.slogan,
+          logo: loginUserModel.data?.logo,
+          societyName: loginUserModel.data?.name,
+          supportEmail: loginUserModel.data?.supportEmail,
+          supportPhone: loginUserModel.data?.supportPhone,
+          splashImage: loginUserModel.data?.splashImage,
+          isModerator: loginUserModel.data?.isModerator,
+          userType: "resident");
 
       MySharedPreferences.setUserData(user: user);
       final NotificationServices notificationServices = NotificationServices();
@@ -131,7 +141,7 @@ class LoginController extends GetxController {
       User user2 = await MySharedPreferences.getUserData();
 
       SessionController().user = user2;
-      fcmtokenrefresh(user.userId!, token!, user.bearerToken!);
+      fcmtokenrefresh(user.userId ?? 0, token ?? "", user.bearerToken ?? "");
 
       Get.snackbar("Message", "Login Successfully");
       if (user.address == "NA" || user.address == null) {

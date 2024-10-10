@@ -108,6 +108,7 @@ class Api {
   static const String residentVote = baseUrl + "polls/vote";
   static const String getAllSocietyRule = baseUrl + "all-rules";
   static const String getAllAppPermission = baseUrl + "society/permissions";
-
+  static const String viewResidents = baseUrl + "viewresidents";
+  static const String blockResident = baseUrl + "block-resident";
   static const String getSocietyDataForSplash = baseUrl + "society/viewsociety";
 }

@@ -4,6 +4,7 @@ import 'package:userapp/Module/All_Bills/Controller/monthly_bills_controller.dar
 import 'package:userapp/Module/Chat%20Availbility/Controller/chat_availibility_controller.dart';
 import 'package:userapp/Module/Chat%20Screens/Neighbour%20Chat%20Screen/Controller/neighbour_chat_screen_controller.dart';
 import 'package:userapp/Module/Discussion%20Form/Controller/discussion_form_controller.dart';
+import 'package:userapp/Module/Discussion%20Form/Controller/view_all_resident_controller.dart';
 import 'package:userapp/Module/Emergency%20Numbers/controller/emergency_numbers_controller.dart';
 import 'package:userapp/Module/Emergency/Controller/emergency_controller.dart';
 import 'package:userapp/Module/Events/Controller/event_screen_controller.dart';
@@ -65,7 +66,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => VisitorDetailsController());
     Get.lazyPut(() => SocietyRuleController());
     Get.lazyPut(() => VotingController());
-
+    Get.lazyPut(() => ViewResidentController());
     Get.lazyPut(() => ForgetPasswordController());
   }
 }

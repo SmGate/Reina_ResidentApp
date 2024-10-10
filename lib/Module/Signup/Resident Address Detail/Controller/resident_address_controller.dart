@@ -10,6 +10,7 @@ import 'package:userapp/utils/Constants/constants.dart';
 import 'package:userapp/Module/Signup/Resident%20Address%20Detail/Model/apartment.dart';
 import 'package:userapp/Module/Signup/Resident%20Address%20Detail/Model/phase.dart';
 import 'package:userapp/Services/Shared%20Preferences/MySharedPreferences.dart';
+import 'package:userapp/utils/Constants/session_controller.dart';
 
 import '../../../../utils/Constants/api_routes.dart';
 import '../../../../Routes/set_routes.dart';
@@ -385,8 +386,24 @@ class ResidentAddressDetailController extends GetxController {
             roleName: user.roleName,
             address: address,
             bearerToken: user.bearerToken,
+            image: user.image,
+            subadminid: user.subadminid,
+            residentid: user.residentid,
+            mobile: user.mobile,
+            societyId: user.societyId,
+            email: user.email,
+            hasCustomIntro: user.hasCustomIntro,
+            slogan: user.slogan,
+            societyName: user.societyName,
+            logo: user.logo,
+            permissions: user.permissions,
+            supportEmail: user.supportEmail,
+            supportPhone: user.supportPhone,
+            splashImage: user.splashImage,
+            userType: user.userType,
           );
           MySharedPreferences.setUserData(user: user1);
+          SessionController().user = user1;
           await loginResidentUpdateAddressApi(
               address: address,
               residentid: user.userId!,
@@ -461,8 +478,24 @@ class ResidentAddressDetailController extends GetxController {
             roleName: user.roleName,
             address: address,
             bearerToken: user.bearerToken,
+            image: user.image,
+            subadminid: user.subadminid,
+            residentid: user.residentid,
+            mobile: user.mobile,
+            societyId: user.societyId,
+            email: user.email,
+            hasCustomIntro: user.hasCustomIntro,
+            slogan: user.slogan,
+            societyName: user.societyName,
+            logo: user.logo,
+            permissions: user.permissions,
+            supportEmail: user.supportEmail,
+            supportPhone: user.supportPhone,
+            splashImage: user.splashImage,
+            userType: user.userType,
           );
           MySharedPreferences.setUserData(user: user1);
+          SessionController().user = user1;
           await loginResidentUpdateAddressApi(
               address: address,
               residentid: user.userId!,
@@ -538,7 +571,24 @@ class ResidentAddressDetailController extends GetxController {
             roleName: user.roleName,
             address: address,
             bearerToken: user.bearerToken,
+            image: user.image,
+            subadminid: user.subadminid,
+            residentid: user.residentid,
+            mobile: user.mobile,
+            societyId: user.societyId,
+            email: user.email,
+            hasCustomIntro: user.hasCustomIntro,
+            slogan: user.slogan,
+            societyName: user.societyName,
+            logo: user.logo,
+            permissions: user.permissions,
+            supportEmail: user.supportEmail,
+            supportPhone: user.supportPhone,
+            splashImage: user.splashImage,
+            userType: user.userType,
           );
+
+          SessionController().user = user1;
           MySharedPreferences.setUserData(user: user1);
           await loginResidentUpdateAddressApi(
               address: address,
@@ -610,7 +660,24 @@ class ResidentAddressDetailController extends GetxController {
             roleName: user.roleName,
             address: address,
             bearerToken: user.bearerToken,
+            image: user.image,
+            subadminid: user.subadminid,
+            residentid: user.residentid,
+            mobile: user.mobile,
+            societyId: user.societyId,
+            email: user.email,
+            hasCustomIntro: user.hasCustomIntro,
+            slogan: user.slogan,
+            societyName: user.societyName,
+            logo: user.logo,
+            permissions: user.permissions,
+            supportEmail: user.supportEmail,
+            supportPhone: user.supportPhone,
+            splashImage: user.splashImage,
+            userType: user.userType,
           );
+
+          SessionController().user = user1;
           MySharedPreferences.setUserData(user: user1);
           await loginResidentUpdateAddressApi(
               address: address,

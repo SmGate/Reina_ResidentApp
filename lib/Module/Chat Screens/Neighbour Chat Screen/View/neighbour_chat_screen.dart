@@ -121,15 +121,19 @@ class NeighbourChatScreen extends GetView {
                                             color: AppColors.appThem,
                                             width: 1.5)))),
                             10.w.pw,
-                            Text(
-                              controller.chatNeighbours.firstname.toString() +
-                                  ' ' +
-                                  controller.chatNeighbours.lastname.toString(),
-                              style: reusableTextStyle(
-                                  textStyle: GoogleFonts.dmSans(),
-                                  fontSize: 20.0,
-                                  color: AppColors.textBlack,
-                                  fontWeight: FontWeight.bold),
+                            SizedBox(
+                              width: 140,
+                              child: Text(
+                                controller.chatNeighbours.firstname.toString() +
+                                    ' ' +
+                                    controller.chatNeighbours.lastname
+                                        .toString(),
+                                style: reusableTextStyle(
+                                    textStyle: GoogleFonts.dmSans(),
+                                    fontSize: 14.0,
+                                    color: AppColors.textBlack,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                             10.w.pw,
                             Spacer(),
@@ -352,6 +356,7 @@ class NeighbourChatScreen extends GetView {
                               width: 292.w,
                               height: 52.w,
                               child: TextFormField(
+                                cursorColor: AppColors.appThem,
                                 maxLines: null,
                                 controller: controller.msg,
                                 decoration: InputDecoration(
@@ -404,7 +409,7 @@ class NeighbourChatScreen extends GetView {
                                           chatRoomId: controller.chatRoomId,
                                           myData: controller.chatNeighbours
                                               .toJson(),
-                                          message:
+                                          chatmessage:
                                               controller.msg.text.toString(),
                                           name: controller.user.firstName
                                                   .toString() +
@@ -515,9 +520,9 @@ class NeighbourChatScreen extends GetView {
                                     controller.sendNotification(
                                         chatType: controller.chatType,
                                         chatRoomId: controller.chatRoomId,
-                                        myData:
-                                            controller.chatNeighbours.toJson(),
-                                        message: controller.msg.text.toString(),
+                                        myData: controller.chatNeighbours,
+                                        chatmessage:
+                                            controller.msg.text.toString(),
                                         name: controller
                                                 .chatNeighbours.firstname
                                                 .toString() +

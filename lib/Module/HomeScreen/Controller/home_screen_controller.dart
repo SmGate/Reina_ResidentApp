@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
 import 'package:image_picker/image_picker.dart';
 import 'package:userapp/App%20Exceptions/app_exception.dart';
-import 'package:userapp/Module/HomeScreen/Model/society_support_model.dart';
-import 'package:userapp/Module/HomeScreen/service/home_screen_service.dart';
 import 'package:userapp/utils/Constants/api_routes.dart';
 import 'package:userapp/utils/Constants/constants.dart';
 import 'package:userapp/utils/Constants/session_controller.dart';
@@ -27,7 +25,7 @@ class HomeScreenController extends GetxController {
     pageController.dispose();
   }
 
-  late Future<Residents> future;
+  Future<Residents>? future;
 
   final _repository = HomeRepository();
   var imageFile;
@@ -81,11 +79,7 @@ class HomeScreenController extends GetxController {
     future = user.roleName == "familymember"
         ? loginResidentDetails(
             userid: user.residentid!, token: user.bearerToken!)
-        : loginResidentDetails(
-            userid: user.residentid!, token: user.bearerToken!);
-
-    socitySupportModel =
-        await getSocietySupport(subadminId: user.subadminid ?? 0);
+        : loginResidentDetails(userid: user.userId!, token: user.bearerToken!);
   }
 
   // Method to update user data
@@ -129,8 +123,11 @@ class HomeScreenController extends GetxController {
           status: e["status"],
           username: e["username"],
           createdAt: e["createdAt"],
+          isModerator: e["is_moderator"],
+          isForumBlocked: e["is_forum_blocked"],
           updatedAt: e["updatedAt"]);
 
+      SessionController().residents = residents;
       if (response.statusCode == 200) {
         checkResidentVerified.value = false;
         return residents;
@@ -214,7 +211,7 @@ class HomeScreenController extends GetxController {
     };
     _repository.updateUserNameApi(data, user.bearerToken).then((value) async {
       myToast(msg: 'User Name Updated Successfully');
-      future = await user.roleId == 5
+      future = await user.roleName == "familymember"
           ? loginResidentDetails(
               userid: user.residentid!, token: user.bearerToken!)
           : // Login user Resident
@@ -236,33 +233,6 @@ class HomeScreenController extends GetxController {
         myToast(msg: error.toString(), isNegative: true);
       }
     });
-  }
-
-  /////////////////////////////
-
-////////  SOCIETY SUPPORT DATA
-  RxBool loading = false.obs;
-  RxString error = "".obs;
-
-  var socitySupportModel = SocietySupportModel();
-  Future<SocietySupportModel> getSocietySupport({int? subadminId}) async {
-    error.value = "";
-    loading.value = true;
-
-    var res = await HomeScreenService.getSocietySupport(subadminId: subadminId);
-    loading.value = false;
-
-    if (res is SocietySupportModel) {
-      socitySupportModel = res;
-
-      return socitySupportModel;
-    } else {
-      loading.value = false;
-      error.value = res.toString();
-      Get.snackbar("Error", error.value);
-    }
-
-    return socitySupportModel;
   }
 }
 

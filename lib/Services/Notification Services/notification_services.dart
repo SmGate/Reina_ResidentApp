@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
+import 'package:userapp/Module/Discussion%20Form/Controller/discussion_form_controller.dart';
 import 'package:userapp/Services/Shared%20Preferences/MySharedPreferences.dart';
+import 'package:userapp/utils/Constants/session_controller.dart';
 
 import '../../utils/Constants/api_routes.dart';
 import '../../Module/Chat Availbility/Model/ChatNeighbours.dart';
@@ -94,9 +97,28 @@ class NotificationServices {
     }
   }
 
+  // Future<String?> getDeviceToken() async {
+  //   String? deviceToken = "";
+
+  //   if (Platform.isAndroid) {
+  //     deviceToken = await firebaseMessaging.getToken() ?? "";
+  //   }
+  //   if (Platform.isIOS) {
+  //     deviceToken = await firebaseMessaging.getAPNSToken();
+  //   }
+
+  //   print(" device token is $deviceToken");
+  //   return deviceToken;
+  // }
+
   Future<String?> getDeviceToken() async {
-    String? deviceToken = await firebaseMessaging.getToken();
-    print(" device token is $deviceToken");
+    String? deviceToken = "";
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      deviceToken = await firebaseMessaging.getToken();
+    }
+
+    print("Device token is $deviceToken");
     return deviceToken;
   }
 
@@ -141,7 +163,35 @@ class NotificationServices {
       //   Get.toNamed(voting, arguments: [user, resident]);
     } else if (message.data['type'] == 'New-Voting-Poll') {
       Get.toNamed(voting, arguments: [user, resident]);
-    } else if (message.data['type'] == 'NeighbourChat') {
+    } else if (message.data['type'] == 'Moderator') {
+      Get.toNamed(homescreen, arguments: user);
+      var disscussionForumController = Get.find<DiscussionFormController>();
+      disscussionForumController
+          .setModeratorResident(resident.isModerator ?? 0);
+    }
+    //////////////////////////////////////////  For blocked user on disscussion forum
+
+    else if (message.data['type'] == 'Account Blocked') {
+      var disscussionForumController = Get.find<DiscussionFormController>();
+      disscussionForumController
+          .setBLockedResident(resident.isForumBlocked ?? 0);
+      Get.toNamed(discussion_form, arguments: [user, resident]);
+    } else if (message.data['type'] == 'Account Opened') {
+      Get.toNamed(discussion_form, arguments: [user, resident]);
+      var disscussionForumController = Get.find<DiscussionFormController>();
+      disscussionForumController
+          .setBLockedResident(resident.isForumBlocked ?? 0);
+    }
+
+    //////////////////////////////////////////  For parking slots and wrong parking
+
+    else if (message.data['type'] == 'parking-slot') {
+      Get.toNamed(homescreen, arguments: user);
+    } else if (message.data['type'] == 'wrong-parking') {
+      Get.toNamed(homescreen, arguments: user);
+    }
+    ///////////////////////////////////////////////////////////
+    else if (message.data['type'] == 'NeighbourChat') {
       var data = message.data['data'].toString();
       var chatRoomId = int.parse(message.data['chatroomid']);
 
@@ -236,9 +286,12 @@ class NotificationServices {
         committeemember: e["committeemember"],
         status: e["status"],
         createdAt: e["createdAt"],
+        isModerator: e["is_moderator"],
+        isForumBlocked: e["is_forum_blocked"],
         updatedAt: e["updatedAt"]);
 
     if (response.statusCode == 200) {
+      SessionController().residents = residents;
       return residents;
     }
 

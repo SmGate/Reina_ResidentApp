@@ -238,13 +238,20 @@ class ChatAvailbilityScreen extends StatelessWidget {
                                                                           width:
                                                                               20,
                                                                         ),
-                                                                        Text(
-                                                                          "${snapshot.data!.data[index].firstname.toString()} ${snapshot.data!.data[index].lastname.toString()}",
-                                                                          style: reusableTextStyle(
-                                                                              textStyle: GoogleFonts.dmSans(),
-                                                                              fontSize: 16.0,
-                                                                              color: AppColors.textBlack,
-                                                                              fontWeight: FontWeight.bold),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              150,
+                                                                          child:
+                                                                              Text(
+                                                                            "${snapshot.data!.data[index].firstname.toString()} ${snapshot.data!.data[index].lastname.toString()}",
+                                                                            style: reusableTextStyle(
+                                                                                textStyle: GoogleFonts.dmSans(),
+                                                                                fontSize: 16.0,
+                                                                                color: AppColors.textBlack,
+                                                                                fontWeight: FontWeight.bold),
+                                                                            maxLines:
+                                                                                2,
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
