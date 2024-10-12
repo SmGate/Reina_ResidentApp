@@ -164,10 +164,10 @@ class NotificationServices {
     } else if (message.data['type'] == 'New-Voting-Poll') {
       Get.toNamed(voting, arguments: [user, resident]);
     } else if (message.data['type'] == 'Moderator') {
-      Get.toNamed(homescreen, arguments: user);
       var disscussionForumController = Get.find<DiscussionFormController>();
       disscussionForumController
           .setModeratorResident(resident.isModerator ?? 0);
+      Get.toNamed(homescreen, arguments: user);
     }
     //////////////////////////////////////////  For blocked user on disscussion forum
 

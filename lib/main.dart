@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:userapp/Routes/routes_management.dart';
 import 'package:userapp/Routes/set_routes.dart';
-import 'package:userapp/utils/Constants/secrets.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -26,10 +25,13 @@ main() async {
   if (Platform.isIOS) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: Secrets.API_KEY,
-            appId: Secrets.APP_ID,
-            messagingSenderId: Secrets.MESSAGING_SENDER_ID,
-            projectId: Secrets.PROJECT_ID));
+      apiKey: dotenv.env['API_KEY'] ?? "",
+      appId: dotenv.env['APP_ID'] ?? "",
+      messagingSenderId: dotenv.env['MESSAGING_SENDER_ID'] ?? "",
+      projectId: dotenv.env['PROJECT_ID'] ?? "",
+    ));
+
+    print("dotenv from ***************${dotenv.env['API_KEY'] ?? ""}");
   } else {
     await Firebase.initializeApp();
   }

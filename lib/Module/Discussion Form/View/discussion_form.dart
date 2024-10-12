@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:userapp/Helpers/Date%20Helper/date_helper.dart';
+import 'package:userapp/Module/Discussion%20Form/component/chat_buble.dart';
 import 'package:userapp/Widgets/app_gradient.dart';
 import 'package:userapp/Widgets/loading.dart';
 import 'package:userapp/utils/Constants/images_strings.dart';
@@ -46,56 +47,45 @@ class _DiscussionFormState extends State<DiscussionForm> {
                       padding: EdgeInsets.only(left: 50.w),
                       child: GestureDetector(
                           onTap: () {
-                            controller.isModeratorVal.value == 1
-                                ? Get.offNamed(allResidents,
-                                    arguments: controller.user)
-                                : showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                            backgroundColor:
-                                                AppColors.globalWhite,
-                                            surfaceTintColor:
-                                                AppColors.globalWhite,
-                                            content: SizedBox(
-                                              width: 347.w,
-                                              child: SingleChildScrollView(
-                                                  child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                    Text(
-                                                      'Discussion Forum is a vibrant space for community members to engage in meaningful conversations about pressing societal issues and explore avenues for positive change. Within this module, you can connect with like-minded individuals who share your passion for making the world a better place.',
-                                                      style: GoogleFonts.ubuntu(
-                                                        color:
-                                                            HexColor('#4D4D4D'),
-                                                        fontSize: 12.sp,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                    ),
-                                                    30.h.ph,
-                                                    Center(
-                                                      child: MyButton(
-                                                        gradient: AppGradients
-                                                            .buttonGradient,
-                                                        name: 'Ok',
-                                                        width: 96.w,
-                                                        height: 31.w,
-                                                        border: 7.r,
-                                                        onPressed: () {
-                                                          Get.back();
-                                                        },
-                                                      ),
-                                                    )
-                                                  ])),
-                                            )));
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                    backgroundColor: AppColors.globalWhite,
+                                    surfaceTintColor: AppColors.globalWhite,
+                                    content: SizedBox(
+                                      width: 347.w,
+                                      child: SingleChildScrollView(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                            Text(
+                                              'Discussion Forum is a vibrant space for community members to engage in meaningful conversations about pressing societal issues and explore avenues for positive change. Within this module, you can connect with like-minded individuals who share your passion for making the world a better place.',
+                                              style: GoogleFonts.ubuntu(
+                                                color: HexColor('#4D4D4D'),
+                                                fontSize: 12.sp,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            30.h.ph,
+                                            Center(
+                                              child: MyButton(
+                                                gradient:
+                                                    AppGradients.buttonGradient,
+                                                name: 'Ok',
+                                                width: 96.w,
+                                                height: 31.w,
+                                                border: 7.r,
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                            )
+                                          ])),
+                                    )));
                           },
                           child: Image.asset(
-                            controller.isModeratorVal.value == 1
-                                ? AppImages.block
-                                : AppImages.disscussion_forum,
+                            AppImages.disscussion_forum,
                             color: AppColors.appThem,
                             height:
                                 controller.isModeratorVal.value == 1 ? 30 : 30,
@@ -196,70 +186,71 @@ class _DiscussionFormState extends State<DiscussionForm> {
                                             )),
                                       ],
                                     )),
-                                  Container(
-                                    child: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 10.w,
-                                          right: 10.w,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            6.h.ph,
-                                            data[index]['residentid']! ==
-                                                    controller.user.userId
-                                                ? SizedBox()
-                                                : Text(
-                                                    data[index]['user']
-                                                            ['username']
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Obx(() => controller
+                                                      .isModeratorVal.value ==
+                                                  1 &&
+                                              data[index]['residentid'] !=
+                                                  controller.user.userId
+                                          ? IconButton(
+                                              onPressed: () {
+                                                if (controller.isForumBlockedVal
+                                                        .value ==
+                                                    1) {
+                                                  // Show a dialog box when the user is blocked
+                                                  showDialog(
+                                                    context: Get.context!,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        surfaceTintColor:
+                                                            AppColors
+                                                                .globalWhite,
+                                                        backgroundColor:
+                                                            AppColors
+                                                                .globalWhite,
+                                                        title: Text(
+                                                            "Blocked User"),
+                                                        content: Text(
+                                                            "You are blocked and cannot block other users."),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(); // Close the dialog
+                                                            },
+                                                            child: Text(
+                                                              "OK",
+                                                              style: TextStyle(
+                                                                  color: AppColors
+                                                                      .appThem),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  controller.blockUser(
+                                                    residentId: data[index]
+                                                            ['residentid']
                                                         .toString(),
-                                                    style: reusableTextStyle(
-                                                        textStyle: GoogleFonts
-                                                            .dmSans(),
-                                                        fontSize: 14.0,
-                                                        color:
-                                                            AppColors.textBlack,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                            Text(
-                                              data[index]['message'].toString(),
-                                              textAlign: TextAlign.start,
-                                              style: reusableTextStyle(
-                                                  textStyle:
-                                                      GoogleFonts.dmSans(),
-                                                  fontSize: 14.0,
-                                                  color: AppColors.textBlack,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            4.h.ph,
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 20),
-                                              child: Text(
-                                                DateHelper.messageTime(
-                                                    data[index]['timestamp']
-                                                        .toString()),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 10.sp,
-                                                    color: Colors.black),
+                                                  );
+                                                }
+                                              },
+                                              icon: Icon(
+                                                Icons.block,
+                                                color: AppColors.appThem,
                                               ),
-                                            ),
-                                            4.h.ph,
-                                          ],
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                        )),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10)),
-                                        color: data[index]['residentid']! ==
-                                                controller.user.userId
-                                            ? AppColors.chat
-                                            : AppColors.globalWhite),
-                                    margin: EdgeInsets.all(4),
+                                            )
+                                          : SizedBox()),
+                                      chatBuble(data, index, controller)
+                                    ],
                                   )
                                 ],
                               ),
@@ -278,7 +269,7 @@ class _DiscussionFormState extends State<DiscussionForm> {
                   padding: EdgeInsets.symmetric(vertical: 8.w),
                   child: Obx(
                     () => controller.isForumBlockedVal.value == 1
-                        ? Text("you are blocked!. you can chat right now")
+                        ? Text("you are blocked!. you can't chat right now")
                         : Row(
                             children: [
                               7.w.pw,
@@ -296,6 +287,7 @@ class _DiscussionFormState extends State<DiscussionForm> {
                                 child: TextFormField(
                                   maxLines: null,
                                   controller: controller.msg,
+                                  cursorColor: AppColors.appThem,
                                   decoration: InputDecoration(
                                       contentPadding: EdgeInsets.only(
                                         left: 16.13.w,

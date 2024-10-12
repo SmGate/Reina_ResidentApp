@@ -42,6 +42,5 @@ DerivedData/
 *.class
 
 # Flutter Environment Variables
-lib/utils/Constants/secrets.dart
-lib/Services/SendNotificationService/get_server_key.dart
 .env
+assets/config/service_account.json

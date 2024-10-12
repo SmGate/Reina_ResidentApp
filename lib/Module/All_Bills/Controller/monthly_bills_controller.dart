@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, unused_local_variable
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:userapp/Module/All_Bills/Model/pay_bill_with_card_model.dart';
 import 'package:userapp/Module/All_Bills/Model/pay_bill_with_wallet_model.dart';
@@ -8,7 +9,6 @@ import 'package:userapp/Module/All_Bills/card_payments-jazz-cash/jasscash_paymen
 import 'package:userapp/Module/All_Bills/card_payments-jazz-cash/jazzcash_flutter.dart';
 import 'package:userapp/Module/All_Bills/components/payment_dialogue.dart';
 import 'package:userapp/Module/All_Bills/components/payment_sheet.dart';
-import 'package:userapp/utils/Constants/secrets.dart';
 import '../../HomeScreen/Model/residents.dart';
 import '../../Login/Model/User.dart';
 import '../Model/BillModel.dart';
@@ -172,9 +172,9 @@ class MonthlyBillsController extends GetxController {
       int? billId}) async {
     try {
       JazzCashFlutter jazzCashFlutter = JazzCashFlutter(
-        merchantId: Secrets.MERCHANT_ID,
-        merchantPassword: Secrets.MERCHANT_PASSWARD,
-        integritySalt: Secrets.INTEGRITY_SALT,
+        merchantId: dotenv.env['MERCHANT_ID'] ?? "",
+        merchantPassword: dotenv.env['MERCHANT_PASSWARD'] ?? "",
+        integritySalt: dotenv.env['INTEGRITY_SALT'] ?? "",
         isSandbox: true,
       );
 
@@ -185,9 +185,9 @@ class MonthlyBillsController extends GetxController {
         ppAmount: balance ?? "",
         ppBillReference: 'billRef000-$billId',
         ppDescription: description ?? "",
-        ppMerchantID: Secrets.MERCHANT_ID,
-        ppPassword: Secrets.MERCHANT_PASSWARD,
-        ppReturnURL: Secrets.RETURN_URL,
+        ppMerchantID: dotenv.env['MERCHANT_ID'] ?? "",
+        ppPassword: dotenv.env['MERCHANT_PASSWARD'] ?? "",
+        ppReturnURL: dotenv.env['RETURN_URL'] ?? "",
       );
 
       jazzCashFlutter

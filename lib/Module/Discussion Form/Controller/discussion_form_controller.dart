@@ -13,6 +13,8 @@ import '../../../utils/Constants/api_routes.dart';
 import '../../HomeScreen/Model/residents.dart';
 import '../../Login/Model/User.dart' as U;
 import '../Model/DiscussionChatModel.dart';
+import '../Model/block_resident_model.dart';
+import '../service/all_resident_service.dart';
 
 class DiscussionFormController extends GetxController {
   late final U.User user;
@@ -108,6 +110,30 @@ class DiscussionFormController extends GetxController {
       return DiscussionRoomModel.fromJson(data);
     } else {
       return DiscussionRoomModel.fromJson(data);
+    }
+  }
+
+  ///////////// BLOCK RESIDENT
+
+  var errorBlockingUser = "";
+  var blockUserModel = BlockResidentsModel();
+
+  blockUser({
+    String? residentId,
+    int index = 0,
+  }) async {
+    errorBlockingUser = "";
+
+    var res = await AllResidentSerVice.blockResident(
+      residentId: residentId,
+    );
+
+    if (res is BlockResidentsModel) {
+      blockUserModel = res;
+      Get.snackbar("Message", blockUserModel.message ?? "");
+    } else {
+      errorBlockingUser = res.toString();
+      Get.snackbar("Error", errorBlockingUser);
     }
   }
 }

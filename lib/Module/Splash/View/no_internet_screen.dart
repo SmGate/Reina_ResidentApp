@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:userapp/Routes/set_routes.dart';
 import 'package:userapp/Widgets/app_gradient.dart';
 import 'package:userapp/Widgets/my_button.dart';
+import 'package:userapp/utils/styles/colors.dart';
 
 class NoInternetConnectionScreen extends StatefulWidget {
   const NoInternetConnectionScreen({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _NoInternetConnectionScreenState
           "Internet Restored",
           "You're back online!",
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.appThem,
           colorText: Colors.white,
         );
 

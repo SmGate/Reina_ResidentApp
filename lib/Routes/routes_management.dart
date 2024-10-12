@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:userapp/Module/Discussion%20Form/View/all_residents.dart';
 import 'package:userapp/Module/Discussion%20Form/View/discussion_form.dart';
 import 'package:userapp/Module/Emergency%20Numbers/view/emergency_number_screen.dart';
 import 'package:userapp/Module/Events/View/events_screen.dart';
@@ -208,10 +207,7 @@ class RouteManagement {
           name: noInternetConnection,
           page: () => NoInternetConnectionScreen(),
           transition: Transition.noTransition),
-      GetPage(
-          name: allResidents,
-          page: () => ViewResidents(),
-          transition: Transition.noTransition),
+     
     ];
   }
 }
